@@ -5,29 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b3261f6-b8f9-4c3b-93bf-f8ca3cc81d0a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/GXJY RAG System.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/djangoProject.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/arbitrage_app/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/arbitrage_app/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/arbitrage_app/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/arbitrage_app/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/arbitrage_app/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/arbitrage_app/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/arbitrage_app/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/arbitrage_app/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/djangoProject/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/djangoProject/asgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/djangoProject/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/djangoProject/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/djangoProject/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/arbitrage_app/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/arbitrage_app/configurations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/arbitrage_app/data_providers/BaseDataProvider.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/arbitrage_app/data_providers/WindDataProvider.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/arbitrage_app/data_providers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/arbitrage_app/scheduler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/migrations/20250304.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/migrations/importData.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/templates/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/templates/filter.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arbitrage_app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbitrage_app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arbitrage_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbitrage_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arbitrage_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbitrage_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/asgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djangoProject/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +45,18 @@
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python312/Lib/site-packages/pymysql/_auth.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -60,24 +78,29 @@
     "Django 服务器.System.executor": "Run",
     "Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.executor": "Run",
     "Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function.executor": "Run",
+    "Python.MakeMigurations.executor": "Run",
+    "Python.Migrate.executor": "Run",
+    "Python.RunServer.executor": "Run",
+    "Python.importData.executor": "Run",
     "Python.manage.executor": "Run",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Administrator/Desktop/GXJY RAG System/arbitrage_project",
+    "last_opened_file_path": "C:/Users/Administrator/Desktop/GXJY RAG System/manage.py",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Python.manage">
+  <component name="RunManager" selected="Python.RunServer">
     <configuration name="Test: arbitrage_app.tests.ArbitrageDataTestCase" type="DjangoTestsConfigurationType" temporary="true">
       <module name="djangoProject" />
       <option name="ENV_FILES" value="" />
@@ -120,7 +143,55 @@
       <option name="OPTIONS" value="--testrunner=django.test.runner.DiscoverRunner" />
       <method v="2" />
     </configuration>
-    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="MakeMigurations" type="PythonConfigurationType" factoryName="Python">
+      <module name="djangoProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="makemigrations" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Migrate" type="PythonConfigurationType" factoryName="Python">
+      <module name="djangoProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="migrate" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RunServer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="djangoProject" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,7 +206,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="PARAMETERS" value="runserver" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -143,67 +214,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="System" type="Python.DjangoServer" factoryName="Django server">
-      <module name="djangoProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="djangoProject.settings" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\Administrator\Desktop\GXJY RAG System" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="localhost" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="arbitrage_project" type="Python.DjangoServer" factoryName="Django server">
-      <module name="djangoProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12 (GXJY RAG System)" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\Administrator\Desktop\GXJY RAG System\arbitrage_project" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="localhost" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Django 服务器.System" />
-      <item itemvalue="Django 服务器.arbitrage_project" />
       <item itemvalue="Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase" />
       <item itemvalue="Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function" />
-      <item itemvalue="Python.manage" />
+      <item itemvalue="Python.MakeMigurations" />
+      <item itemvalue="Python.Migrate" />
+      <item itemvalue="Python.RunServer" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.manage" />
+        <item itemvalue="Python.RunServer" />
         <item itemvalue="Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function" />
         <item itemvalue="Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase" />
       </list>
@@ -234,7 +254,14 @@
       <workItem from="1740618624500" duration="206000" />
       <workItem from="1740618853406" duration="364000" />
       <workItem from="1740619226580" duration="633000" />
-      <workItem from="1740620557198" duration="10996000" />
+      <workItem from="1740620557198" duration="12885000" />
+      <workItem from="1740723200820" duration="2452000" />
+      <workItem from="1740965647260" duration="598000" />
+      <workItem from="1740969033684" duration="887000" />
+      <workItem from="1741048595655" duration="258000" />
+      <workItem from="1741048867275" duration="3244000" />
+      <workItem from="1741070178044" duration="7343000" />
+      <workItem from="1741221282961" duration="7020000" />
     </task>
     <servers />
   </component>
@@ -244,9 +271,26 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/arbitrage_app/data_providers/__init__.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/GXJY_RAG_System$Migrate.coverage" NAME="Migrate 覆盖结果" MODIFIED="1740724872939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Backend$Migrate.coverage" NAME="Migrate 覆盖结果" MODIFIED="1741225176380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$Test__arbitrage_app_tests_ArbitrageDataTestCase_test_save_function.coverage" NAME="Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function 覆盖结果" MODIFIED="1740618576202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/GXJY_RAG_System$manage.coverage" NAME="manage 覆盖结果" MODIFIED="1740619356364" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GXJY_RAG_System$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1740724863463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/GXJY_RAG_System$manage.coverage" NAME="RunServer 覆盖结果" MODIFIED="1740724887984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$Test__arbitrage_app_tests_ArbitrageDataTestCase.coverage" NAME="Test: arbitrage_app.tests.ArbitrageDataTestCase 覆盖结果" MODIFIED="1740557018777" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Backend$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1741051317393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Backend$importData.coverage" NAME="importData 覆盖结果" MODIFIED="1741079287132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter_app/migrations" />
+    <SUITE FILE_PATH="coverage/Backend$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1741227891192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
