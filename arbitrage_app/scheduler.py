@@ -20,7 +20,7 @@ def calculate_spread_and_warn():
         provider = get_data_provider()
 
         # 获取近月合约价格
-        near_month_data = provider.get_near_month_data(near_code)
+        near_month_data = provider.get_near_month_price(near_code)
         if near_month_data.ErrorCode == 0:
             near_month_price = near_month_data.Data[0][0]
         else:
@@ -28,7 +28,7 @@ def calculate_spread_and_warn():
             return
 
         # 获取远月合约价格
-        far_month_data = provider.get_far_month_data(far_code)
+        far_month_data = provider.get_far_month_price(far_code)
         if far_month_data.ErrorCode == 0:
             far_month_price = far_month_data.Data[0][0]
         else:

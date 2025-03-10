@@ -4,38 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <title>数据筛选</title>
+        <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 
 <body>
     <form method="get">
-        <label for="product_id">产品类别：</label>
-        <select id="product_id" name="product_id" disabled>
-            <option value="">全部</option>
-            {% for product in products %}
-            <option value="{{ product.id }}">{{ product.product_name }}</option>
-            {% endfor %}
-        </select>
         <!-- 隐藏批号输入框，因为不筛选 -->
         <input type="hidden" id="batch_number" name="batch_number">
 
         <label for="production_area">产区：</label>
-        <input type="text" id="production_area_min" name="production_area_min"
-            placeholder="产区最小值">
-        <input type="text" id="production_area_max" name="production_area_max"
-            placeholder="产区最大值">
+        <input type="text" id="production_area_min" name="production_area_min" placeholder="产区">
 
         <label for="production_place">产地：</label>
-        <input type="text" id="production_place_min" name="production_place_min"
-            placeholder="产地最小值">
-        <input type="text" id="production_place_max" name="production_place_max"
-            placeholder="产地最大值">
+        <input type="text" id="production_place_min" name="production_place_min" placeholder="产地">
 
         <label for="type">类型：</label>
-        <input type="text" id="type_min" name="type_min" placeholder="类型最小值">
-        <input type="text" id="type_max" name="type_max" placeholder="类型最大值">
-
-        <!-- 隐藏颜色级输入框，因为不筛选 -->
-        <input type="hidden" id="color_grade" name="color_grade">
+        <input type="text" id="type_min" name="type_min" placeholder="类型">
 
         <label for="length">长度：</label>
         <input type="text" id="length_min" name="length_min" placeholder="长度最小值">
@@ -50,22 +52,16 @@
         <input type="text" id="code_value_max" name="code_value_max" placeholder="码值最大值">
 
         <label for="moisture_regain">回潮：</label>
-        <input type="text" id="moisture_regain_min" name="moisture_regain_min"
-            placeholder="回潮最小值">
-        <input type="text" id="moisture_regain_max" name="moisture_regain_max"
-            placeholder="回潮最大值">
+        <input type="text" id="moisture_regain_min" name="moisture_regain_min" placeholder="回潮最小值">
+        <input type="text" id="moisture_regain_max" name="moisture_regain_max" placeholder="回潮最大值">
 
         <label for="impurity_content">含杂：</label>
-        <input type="text" id="impurity_content_min" name="impurity_content_min"
-            placeholder="含杂最小值">
-        <input type="text" id="impurity_content_max" name="impurity_content_max"
-            placeholder="含杂最大值">
+        <input type="text" id="impurity_content_min" name="impurity_content_min" placeholder="含杂最小值">
+        <input type="text" id="impurity_content_max" name="impurity_content_max" placeholder="含杂最大值">
 
         <label for="length_uniformity">长整：</label>
-        <input type="text" id="length_uniformity_min" name="length_uniformity_min"
-            placeholder="长整最小值">
-        <input type="text" id="length_uniformity_max" name="length_uniformity_max"
-            placeholder="长整最大值">
+        <input type="text" id="length_uniformity_min" name="length_uniformity_min" placeholder="长整最小值">
+        <input type="text" id="length_uniformity_max" name="length_uniformity_max" placeholder="长整最大值">
 
         <label for="weight">重量：</label>
         <input type="text" id="weight_min" name="weight_min" placeholder="重量最小值">
@@ -76,19 +72,16 @@
         <input type="text" id="warehouse_max" name="warehouse_max" placeholder="仓库最大值">
 
         <label for="quotation_method">报价方式 2：</label>
-        <input type="text" id="quotation_method_min" name="quotation_method_min"
-            placeholder="报价方式 2 最小值">
-        <input type="text" id="quotation_method_max" name="quotation_method_max"
-            placeholder="报价方式 2 最大值">
+        <input type="text" id="quotation_method_min" name="quotation_method_min" placeholder="报价方式 2 最小值">
+        <input type="text" id="quotation_method_max" name="quotation_method_max" placeholder="报价方式 2 最大值">
 
         <!-- 隐藏出库基差输入框，因为不筛选 -->
         <input type="hidden" id="outbound_basis" name="outbound_basis">
 
         <label for="region">地区：</label>
-        <input type="text" id="region_min" name="region_min" placeholder="地区最小值">
-        <input type="text" id="region_max" name="region_max" placeholder="地区最大值">
+        <input type="text" id="region_min" name="region_min" placeholder="地区">
 
-        <input type="submit" value="筛选">
+        <input type="submit" value="筛选" onclick="showTable()">
     </form>
     <table>
         <thead>
@@ -107,7 +100,7 @@
                 <th>长整</th>
                 <th>重量</th>
                 <th>仓库</th>
-                <th>报价方式 2</th>
+                <th>报价方式</th>
                 <th>出库基差</th>
                 <th>地区</th>
             </tr>
@@ -136,6 +129,25 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; 第一页</a>
+        <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a href="?page={{ num }}" class="active">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">下一页</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">最后一页 &raquo;</a>
+        {% endif %}
+    </div>
 </body>
 
 </html>
