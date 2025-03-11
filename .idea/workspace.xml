@@ -5,26 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b3261f6-b8f9-4c3b-93bf-f8ca3cc81d0a" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/cotton-2025-03-06.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filter_app/migrations/0002_alter_productdata_bid.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filter_app/migrations/0003_alter_productdata_color_grade.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filter_app/migrations/0004_alter_productdata_warehouse.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filter_app/migrations/0005_productdata_unique_batch_date.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filter_app/migrations/0006_remove_productdata_unique_batch_date_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GXJY/celery.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/consumers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/routing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GXJY/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GXJY/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/asgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GXJY/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GXJY/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arbitrage_app/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbitrage_app/scheduler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filter_app/configurations.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/configurations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filter_app/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filter_app/migrations/20250304.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/filter_app/migrations/importData.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/filter_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filter_app/templates/filter.html" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/templates/filter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filter_app/crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/task.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/filter_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/filter_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filter_app/易棉销售数据爬虫2024-12-17.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/crawler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +64,7 @@
     &quot;Python.MakeMigurations.executor&quot;: &quot;Run&quot;,
     &quot;Python.Migrate.executor&quot;: &quot;Run&quot;,
     &quot;Python.RunServer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.celery.executor&quot;: &quot;Run&quot;,
     &quot;Python.crawler.executor&quot;: &quot;Run&quot;,
     &quot;Python.importData.executor&quot;: &quot;Run&quot;,
     &quot;Python.manage.executor&quot;: &quot;Run&quot;,
@@ -91,10 +83,15 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\GXJY RAG System\Backend\GXJY" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.RunServer">
     <configuration name="Test: arbitrage_app.tests.ArbitrageDataTestCase" type="DjangoTestsConfigurationType" temporary="true">
       <module name="djangoProject" />
@@ -209,29 +206,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="crawler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="djangoProject" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/filter_app" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/filter_app/crawler.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="settings" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="djangoProject" />
       <option name="ENV_FILES" value="" />
@@ -256,19 +230,42 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="task" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="djangoProject" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/filter_app" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Administrator\Desktop\GXJY RAG System\Backend\filter_app\task.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase" />
       <item itemvalue="Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function" />
       <item itemvalue="Python.MakeMigurations" />
       <item itemvalue="Python.Migrate" />
-      <item itemvalue="Python.crawler" />
-      <item itemvalue="Python.settings" />
       <item itemvalue="Python.RunServer" />
+      <item itemvalue="Python.task" />
+      <item itemvalue="Python.settings" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.RunServer" />
-        <item itemvalue="Python.crawler" />
+        <item itemvalue="Python.task" />
         <item itemvalue="Python.settings" />
         <item itemvalue="Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function" />
         <item itemvalue="Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase" />
@@ -310,12 +307,30 @@
       <workItem from="1741221282961" duration="10015000" />
       <workItem from="1741231362615" duration="15716000" />
       <workItem from="1741307677803" duration="17921000" />
-      <workItem from="1741566378508" duration="13171000" />
+      <workItem from="1741566378508" duration="14172000" />
+      <workItem from="1741601243975" duration="79000" />
+      <workItem from="1741653150519" duration="7771000" />
+      <workItem from="1741661434909" duration="37000" />
+      <workItem from="1741661487151" duration="3026000" />
+      <workItem from="1741669662337" duration="3360000" />
+      <workItem from="1741673848600" duration="754000" />
+      <workItem from="1741674888112" duration="7962000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -328,6 +343,11 @@
           <line>13</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/GXJY/asgi.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -335,10 +355,11 @@
     <SUITE FILE_PATH="coverage/Backend$Migrate.coverage" NAME="Migrate 覆盖结果" MODIFIED="1741315908048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$Test__arbitrage_app_tests_ArbitrageDataTestCase_test_save_function.coverage" NAME="Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function 覆盖结果" MODIFIED="1740618576202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$crawler.coverage" NAME="crawler 覆盖结果" MODIFIED="1741240860947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter_app" />
-    <SUITE FILE_PATH="coverage/GXJY_RAG_System$manage.coverage" NAME="RunServer 覆盖结果" MODIFIED="1740724887984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1740724863463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/GXJY_RAG_System$manage.coverage" NAME="RunServer 覆盖结果" MODIFIED="1740724887984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Backend$celery.coverage" NAME="celery 覆盖结果" MODIFIED="1741672534654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Backend$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1741315900851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Backend$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1741592372467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Backend$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1741681306329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Backend$settings.coverage" NAME="settings 覆盖结果" MODIFIED="1741240096793" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GXJY" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$Migrate.coverage" NAME="Migrate 覆盖结果" MODIFIED="1740724872939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$2024_12_17.coverage" NAME="易棉销售数据爬虫2024-12-17 覆盖结果" MODIFIED="1741230888635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter_app" />

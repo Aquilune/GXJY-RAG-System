@@ -13,8 +13,16 @@ import time
 from .configurations import *
 from .models import ProductData
 
+from celery import shared_task
 
-def crawl_data():
+from .configurations import CRAWLER_PAGES
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+
+@shared_task(bind=True)
+def crawl_data(self, task_id):
+    print("开始爬虫")
     # 配置 Chrome 选项以启用无头模式
     chrome_options = Options()
     chrome_options.add_argument('--headless')  # 启用无头模式
@@ -40,11 +48,12 @@ def crawl_data():
     driver.get(target_url)
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CSS_SELECTOR, "tr.el-table__row")))
 
+    channel_layer = get_channel_layer()
     # 总页数
     total_pages = CRAWLER_PAGES
-
     # 对每一页执行数据抓取和翻页
     for page in range(1, total_pages + 1):
+        print(f"开始爬第{page}页")
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "tr.el-table__row")))
 
         # 解析页面并抓取数据
@@ -56,8 +65,12 @@ def crawl_data():
             batch_number = row.select_one(".batchNo_line div").text.strip() if row.select_one(
                 ".batchNo_line div") else None
 
-            if ProductData.objects.filter(batch_number=batch_number).exists():
-                print(f"批号 {batch_number} 已存在，跳过该条数据")
+            # 获取当前日期
+            today = date.today()
+
+            # 检查日期和批号是否都已存在
+            if ProductData.objects.filter(batch_number=batch_number, update_date=today).exists():
+                print(f"批号 {batch_number} 在日期 {today} 已存在，跳过该条数据")
                 continue
 
             # 产地
@@ -86,6 +99,15 @@ def crawl_data():
             # 重量
             fz16 = row.select_one("td.el-table_1_column_12 .fz16")
             fz16_text = fz16.get_text(strip=True) if fz16 else None
+
+            try:
+                weight = float(fz16_text) if fz16_text else None
+                if weight is not None and weight < 38:
+                    print(f"批号 {batch_number}，重量 {weight} 小于 38，跳过该条数据")
+                    continue
+            except ValueError:
+                print(f"批号 {batch_number}，重量数据无法转换为数字，跳过该条数据")
+                continue
 
             # 仓库
             ell_bold_blue_pointer = row.select_one("td.el-table_1_column_13 .ell.bold.blue.pointer")
@@ -255,5 +277,26 @@ def crawl_data():
         except StaleElementReferenceException:
             continue
 
+        progress = (page / total_pages) * 100
+        print(f"Progress: {progress}")
+        self.update_state(state='PROGRESS', meta={'progress': progress})
+
+        # 通过 WebSocket 发送进度信息
+        async_to_sync(channel_layer.group_send)(
+            f'progress_{task_id}',
+            {
+                'type': 'send_progress',
+                'progress': progress
+            }
+        )
+
+    # 任务完成
+    async_to_sync(channel_layer.group_send)(
+        f'progress_{task_id}',
+        {
+            'type': 'send_progress',
+            'progress': 100
+        }
+    )
     # 关闭浏览器
     driver.quit()

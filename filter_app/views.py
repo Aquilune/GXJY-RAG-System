@@ -1,4 +1,5 @@
 import json
+import uuid
 
 import numpy as np
 from django.forms import model_to_dict
@@ -6,14 +7,40 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import ProductData
 
+from .task import crawl_data
 from django.http import JsonResponse
-from .crawler import crawl_data
+# from celery import AsyncResult
+
+# def crawler_status(request, task_id):
+#     result = AsyncResult(task_id)
+#     status = result.status
+#     if status == 'PROGRESS':
+#         progress = result.info.get('progress', 0)
+#         response_data = {
+#             'status': status,
+#             'progress': progress
+#         }
+#     elif status in ['SUCCESS', 'FAILURE']:
+#         response_data = {
+#             'status': status,
+#             'result': result.result
+#         }
+#     else:
+#         response_data = {
+#             'status': status
+#         }
+#     return JsonResponse(response_data)
+#
 
 
+@csrf_exempt
 def trigger_crawl(request):
     try:
-        crawl_data()
-        return JsonResponse({'status': 'success', 'message': '数据获取任务已完成'})
+        task_id = str(uuid.uuid4())
+        print(f"Task {task_id} sent to Celery. Task ID in Celery: {task_id}")
+        # 异步调用 crawl_data 任务
+        crawl_data.delay(task_id)
+        return JsonResponse({'status': 'success', 'task_id': task_id})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
@@ -193,8 +220,4 @@ def comparison_view(request):
 
     else:
         return JsonResponse({'error': 'Only POST requests are supported'}, status=405)
-
-
-
-
 

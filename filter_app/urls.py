@@ -1,9 +1,16 @@
-from django.urls import path
+from django.urls import path, re_path
+
+from .consumers import ProgressConsumer
 from .views import *
 
 urlpatterns = [
     # 根路径映射到 filter_view 视图函数
     path('filter/', filter_view, name='filter'),
-    path('crawler_data/', trigger_crawl, name='crawler_data'),
-    path('comparison/', comparison_view, name='comparison_data')
+    path('crawler/', trigger_crawl, name='crawler_data'),
+    # path('crawler/status/<str:task_id>/', crawler_status, name='crawler_status'),
+    path('comparison/', comparison_view, name='comparison_data'),
+]
+
+websocket_urlpatterns = [
+    re_path(r'ws/progress/(?P<task_id>[^/]+)/$', ProgressConsumer.as_asgi()),
 ]

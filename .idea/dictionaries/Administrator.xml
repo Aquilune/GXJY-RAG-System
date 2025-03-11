@@ -2,6 +2,7 @@
   <dictionary name="Administrator">
     <words>
       <w>asctime</w>
+      <w>asgi</w>
       <w>corsheaders</w>
       <w>gxjy</w>
       <w>levelname</w>
