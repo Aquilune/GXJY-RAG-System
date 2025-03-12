@@ -2,35 +2,15 @@ import json
 import uuid
 
 import numpy as np
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.forms import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
 
+# from .configurations import SINGLE_PAGE_NUM
 from .models import ProductData
 
 from .task import crawl_data
 from django.http import JsonResponse
-# from celery import AsyncResult
-
-# def crawler_status(request, task_id):
-#     result = AsyncResult(task_id)
-#     status = result.status
-#     if status == 'PROGRESS':
-#         progress = result.info.get('progress', 0)
-#         response_data = {
-#             'status': status,
-#             'progress': progress
-#         }
-#     elif status in ['SUCCESS', 'FAILURE']:
-#         response_data = {
-#             'status': status,
-#             'result': result.result
-#         }
-#     else:
-#         response_data = {
-#             'status': status
-#         }
-#     return JsonResponse(response_data)
-#
 
 
 @csrf_exempt
@@ -43,6 +23,7 @@ def trigger_crawl(request):
         return JsonResponse({'status': 'success', 'task_id': task_id})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
 
 @csrf_exempt
 def filter_view(request):
@@ -70,6 +51,10 @@ def filter_view(request):
             weightMax = data.get('weightMax')
             weightMin = data.get('weightMin')
             warehouse = data.get('warehouse')
+
+            # 获取分页参数
+            page = data.get('page', 1)  # 默认页码为 1
+            page_size = data.get('page_size')  # 默认每页显示记录数
 
             if batch_number:
                 queryset = queryset.filter(batch_number=batch_number)
@@ -110,20 +95,40 @@ def filter_view(request):
             if warehouse:
                 queryset = queryset.filter(warehouse=warehouse)
 
-            # # 创建 Paginator 对象，每页显示 10 条数据（可根据需求调整）
-            # paginator = Paginator(queryset, 10)
-            #
-            # # 获取当前页码，默认为第 1 页
-            # page_number = request.GET.get('page', 1)
-            # page_obj = paginator.get_page(page_number)
+            # 创建 Paginator 实例
+            paginator = Paginator(queryset, page_size)
+            print(page_size)
+            try:
+                # 获取指定页码的分页数据
+                page_obj = paginator.page(page)
+            except (PageNotAnInteger, EmptyPage):
+                # 如果页码不是整数或超出范围，返回第一页数据
+                page_obj = paginator.page(1)
 
-            data = [model_to_dict(item) for item in queryset]
+            # 将分页数据转换为字典列表
+            data = [model_to_dict(item) for item in page_obj]
 
-            return JsonResponse({'data': data}, safe=False)
+            # 构建分页信息
+            pagination_info = {
+                'page_size': page_size,
+                'total_pages': paginator.num_pages,
+                'current_page': page_obj.number,
+                'has_next': page_obj.has_next(),
+                'has_previous': page_obj.has_previous(),
+                'total_count': paginator.count
+            }
+
+            # 返回分页数据和分页信息
+            return JsonResponse({
+                'data': data,
+                'pagination': pagination_info
+            }, safe=False)
+
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are supported'}, status=405)
+
 
 @csrf_exempt
 def comparison_view(request):
@@ -132,6 +137,10 @@ def comparison_view(request):
         try:
             data = json.loads(request.body)
 
+            region = data.get('region')
+            place = data.get('place')
+            type = data.get('type')
+            warehouse = data.get('warehouse')
             dateMin = data.get('dateMin')
             dateMax = data.get('dateMax')
             lengthMax = data.get('lengthMax')
@@ -149,6 +158,14 @@ def comparison_view(request):
             weightMax = data.get('weightMax')
             weightMin = data.get('weightMin')
 
+            if region:
+                queryset = queryset.filter(production_area=region)
+            if place:
+                queryset = queryset.filter(production_place=place)
+            if type:
+                queryset = queryset.filter(type=type)
+            if warehouse:
+                queryset = queryset.filter(warehouse=warehouse)
             if dateMin:
                 queryset = queryset.filter(update_date__gte=dateMin)
             if dateMax:
@@ -190,17 +207,23 @@ def comparison_view(request):
                 date = item.update_date
                 if date not in date_groups:
                     date_groups[date] = []
-                date_groups[date].append(item.outbound_basis)
+                # 将出库基差和重量作为元组添加到对应日期的列表中
+                date_groups[date].append((item.outbound_basis, item.weight))
 
 
             # 计算每个日期的中位数和 25%-75% 分位数区间
             chart_data = []
-            for date, basis_values in date_groups.items():
-                if basis_values:
+            for date, values in date_groups.items():
+                if values:
+                    # 分离出库基差和重量
+                    basis_values = [value[0] for value in values]
+                    weight_values = [value[1] for value in values]
+
                     median = np.median(basis_values)
                     max = np.max(basis_values)
                     min = np.min(basis_values)
                     q25, q75 = np.percentile(basis_values, [25, 75])
+                    total_weight = np.sum(weight_values)
                     chart_data.append({
                         'date': str(date),
                         'median': float(median),
@@ -208,7 +231,8 @@ def comparison_view(request):
                         'min': float(min),
                         'q25': float(q25),
                         'q75': float(q75),
-                        'volume': len(basis_values)
+                        'volume': len(basis_values),
+                        'total_weight': float(total_weight)
                     })
 
             # 按日期排序
@@ -221,3 +245,19 @@ def comparison_view(request):
     else:
         return JsonResponse({'error': 'Only POST requests are supported'}, status=405)
 
+
+@csrf_exempt
+def delete_data_by_date(request, date):
+    if request.method == 'DELETE':
+        try:
+            if not date:
+                return JsonResponse({'error': 'Date parameter is required'}, status=400)
+
+            # 删除指定日期的数据
+            deleted_count, _ = ProductData.objects.filter(update_date=date).delete()
+
+            return JsonResponse({'message': f'{deleted_count} records deleted successfully'})
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are supported'}, status=405)

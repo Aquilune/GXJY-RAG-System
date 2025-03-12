@@ -12,3 +12,5 @@ CRAWLER_TARGET = "https://www.oureway.com/market/resources/xj"
 
 today = date.today().strftime("%Y-%m-%d")
 FILENAME = f"cotton-{today}.xlsx"
+
+# SINGLE_PAGE_NUM = 100

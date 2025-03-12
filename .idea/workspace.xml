@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b3261f6-b8f9-4c3b-93bf-f8ca3cc81d0a" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/GXJY/celery.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filter_app/consumers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filter_app/routing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GXJY/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GXJY/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/asgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GXJY/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filter_app/crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filter_app/configurations.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/configurations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filter_app/task.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/task.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/filter_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/filter_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/views.py" afterDir="false" />
     </list>
@@ -52,41 +47,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Django Server.Project1.executor&quot;: &quot;Run&quot;,
-    &quot;Django Server.System.executor&quot;: &quot;Run&quot;,
-    &quot;Django Server.arbitrage_project.executor&quot;: &quot;Run&quot;,
-    &quot;Django 服务器.System.executor&quot;: &quot;Run&quot;,
-    &quot;Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.executor&quot;: &quot;Run&quot;,
-    &quot;Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function.executor&quot;: &quot;Run&quot;,
-    &quot;Python.MakeMigurations.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Migrate.executor&quot;: &quot;Run&quot;,
-    &quot;Python.RunServer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.celery.executor&quot;: &quot;Run&quot;,
-    &quot;Python.crawler.executor&quot;: &quot;Run&quot;,
-    &quot;Python.importData.executor&quot;: &quot;Run&quot;,
-    &quot;Python.manage.executor&quot;: &quot;Run&quot;,
-    &quot;Python.settings.executor&quot;: &quot;Run&quot;,
-    &quot;Python.易棉销售数据爬虫2024-12-17.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator/Desktop/GXJY RAG System/manage.py&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Django Server.Project1.executor": "Run",
+    "Django Server.System.executor": "Run",
+    "Django Server.arbitrage_project.executor": "Run",
+    "Django 服务器.System.executor": "Run",
+    "Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.executor": "Run",
+    "Django 测试.Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function.executor": "Run",
+    "Python.MakeMigurations.executor": "Run",
+    "Python.Migrate.executor": "Run",
+    "Python.RunServer.executor": "Run",
+    "Python.celery.executor": "Run",
+    "Python.crawler.executor": "Run",
+    "Python.importData.executor": "Run",
+    "Python.manage.executor": "Run",
+    "Python.settings.executor": "Run",
+    "Python.易棉销售数据爬虫2024-12-17.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Administrator/Desktop/GXJY RAG System/manage.py",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "http.proxy",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\GXJY RAG System\Backend\GXJY" />
@@ -315,6 +310,7 @@
       <workItem from="1741669662337" duration="3360000" />
       <workItem from="1741673848600" duration="754000" />
       <workItem from="1741674888112" duration="7962000" />
+      <workItem from="1741739555129" duration="18146000" />
     </task>
     <servers />
   </component>
@@ -355,15 +351,15 @@
     <SUITE FILE_PATH="coverage/Backend$Migrate.coverage" NAME="Migrate 覆盖结果" MODIFIED="1741315908048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$Test__arbitrage_app_tests_ArbitrageDataTestCase_test_save_function.coverage" NAME="Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function 覆盖结果" MODIFIED="1740618576202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$crawler.coverage" NAME="crawler 覆盖结果" MODIFIED="1741240860947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter_app" />
-    <SUITE FILE_PATH="coverage/GXJY_RAG_System$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1740724863463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$manage.coverage" NAME="RunServer 覆盖结果" MODIFIED="1740724887984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GXJY_RAG_System$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1740724863463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$celery.coverage" NAME="celery 覆盖结果" MODIFIED="1741672534654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Backend$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1741315900851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Backend$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1741681306329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Backend$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1741765611657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Backend$settings.coverage" NAME="settings 覆盖结果" MODIFIED="1741240096793" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GXJY" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$Migrate.coverage" NAME="Migrate 覆盖结果" MODIFIED="1740724872939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$2024_12_17.coverage" NAME="易棉销售数据爬虫2024-12-17 覆盖结果" MODIFIED="1741230888635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter_app" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$Test__arbitrage_app_tests_ArbitrageDataTestCase.coverage" NAME="Test: arbitrage_app.tests.ArbitrageDataTestCase 覆盖结果" MODIFIED="1740557018777" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Backend$importData.coverage" NAME="importData 覆盖结果" MODIFIED="1741079287132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter_app/migrations" />
+    <SUITE FILE_PATH="coverage/Backend$importData.coverage" NAME="importData 覆盖结果" MODIFIED="1741749466078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../.." />
   </component>
 </project>

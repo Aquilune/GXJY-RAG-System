@@ -9,6 +9,7 @@ urlpatterns = [
     path('crawler/', trigger_crawl, name='crawler_data'),
     # path('crawler/status/<str:task_id>/', crawler_status, name='crawler_status'),
     path('comparison/', comparison_view, name='comparison_data'),
+    path('deleteData/<str:date>/', delete_data_by_date, name='delete_data_by_date')
 ]
 
 websocket_urlpatterns = [

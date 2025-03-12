@@ -153,3 +153,5 @@ CHANNEL_LAYERS = {
 
 
 CSP_CONNECT_SRC = ("'self'", "ws://localhost")
+
+APPEND_SLASH = False

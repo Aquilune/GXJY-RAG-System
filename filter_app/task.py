@@ -1,3 +1,4 @@
+import redis
 from django.db import IntegrityError
 
 from selenium import webdriver
@@ -278,6 +279,7 @@ def crawl_data(self, task_id):
             continue
 
         progress = (page / total_pages) * 100
+        progress = round(progress, 2)
         print(f"Progress: {progress}")
         self.update_state(state='PROGRESS', meta={'progress': progress})
 
@@ -298,5 +300,6 @@ def crawl_data(self, task_id):
             'progress': 100
         }
     )
+
     # 关闭浏览器
     driver.quit()
