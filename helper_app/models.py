@@ -13,7 +13,15 @@ class Chats(models.Model):
 
 
 class Messages(models.Model):
-    # USER_TYPES = (('user': 'User'),)
+    USER_TYPES = (
+        ('user', 'User'),
+        ('assistant', 'Assistant'),
+    )
     id = models.AutoField(primary_key=True)
     chat_id = models.ForeignKey(Chats, on_delete=models.CASCADE)
-    user = models.CharField(max_length=255, null=False, blank=False)
+    user = models.CharField(max_length=10, choices=USER_TYPES, null=False, blank=False)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.text
