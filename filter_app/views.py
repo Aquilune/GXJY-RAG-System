@@ -140,7 +140,7 @@ def comparison_view(request):
             region = data.get('region')
             place = data.get('place')
             type = data.get('type')
-            warehouse = data.get('warehouse')
+            warehouseArea = data.get('warehouse_area')
             dateMin = data.get('dateMin')
             dateMax = data.get('dateMax')
             lengthMax = data.get('lengthMax')
@@ -164,8 +164,8 @@ def comparison_view(request):
                 queryset = queryset.filter(production_place=place)
             if type:
                 queryset = queryset.filter(type=type)
-            if warehouse:
-                queryset = queryset.filter(warehouse=warehouse)
+            if warehouseArea:
+                queryset = queryset.filter(warehouse_area=warehouseArea)
             if dateMin:
                 queryset = queryset.filter(update_date__gte=dateMin)
             if dateMax:
@@ -183,9 +183,9 @@ def comparison_view(request):
             if code_valueMin:
                 queryset = queryset.filter(code_value__gte=code_valueMin)
             if moisture_regainMax:
-                queryset = queryset.filter(moisture_regain__lte=moisture_regainMax)  # 修正字段名
+                queryset = queryset.filter(moisture_regain__lte=moisture_regainMax)
             if moisture_regainMin:
-                queryset = queryset.filter(moisture_regain__gte=moisture_regainMin)  # 修正字段名
+                queryset = queryset.filter(moisture_regain__gte=moisture_regainMin)
             if impurity_contentMax:
                 queryset = queryset.filter(impurity_content__lte=impurity_contentMax)
             if impurity_contentMin:

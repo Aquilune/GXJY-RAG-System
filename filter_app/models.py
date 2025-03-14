@@ -24,6 +24,7 @@ class ProductData(models.Model):
     freight = models.CharField(max_length=50)
     outbound_basis = models.IntegerField(null=True, blank=True)
     update_date = models.DateField()
+    warehouse_area = models.CharField(max_length=50, null=False, default='内地')
 
     def __str__(self):
         return self.batch_number

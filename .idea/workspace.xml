@@ -5,11 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b3261f6-b8f9-4c3b-93bf-f8ca3cc81d0a" name="Changes" comment="Changes">
+      <change afterPath="$PROJECT_DIR$/arbitrage_app/dateCaculate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/arbitrage_app/migrations/0002_rename_delivery_date_arbitragedata_first_delivery_date_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/migrations/0008_productdata_warehouse_area.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/migrations/0009_alter_productdata_warehouse_area.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/filter_app/migrations/0010_alter_productdata_warehouse_area.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GXJY/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GXJY/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arbitrage_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbitrage_app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/filter_app/configurations.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/configurations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filter_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/filter_app/task.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/task.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filter_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/filter_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/filter_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,8 +67,10 @@
     "Python.RunServer.executor": "Run",
     "Python.celery.executor": "Run",
     "Python.crawler.executor": "Run",
+    "Python.dateCaculate.executor": "Run",
     "Python.importData.executor": "Run",
     "Python.manage.executor": "Run",
+    "Python.models.executor": "Run",
     "Python.settings.executor": "Run",
     "Python.易棉销售数据爬虫2024-12-17.executor": "Run",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
@@ -87,7 +95,7 @@
       <recent name="C:\Users\Administrator\Desktop\GXJY RAG System\Backend\GXJY" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.RunServer">
+  <component name="RunManager">
     <configuration name="Test: arbitrage_app.tests.ArbitrageDataTestCase" type="DjangoTestsConfigurationType" temporary="true">
       <module name="djangoProject" />
       <option name="ENV_FILES" value="" />
@@ -310,7 +318,9 @@
       <workItem from="1741669662337" duration="3360000" />
       <workItem from="1741673848600" duration="754000" />
       <workItem from="1741674888112" duration="7962000" />
-      <workItem from="1741739555129" duration="18146000" />
+      <workItem from="1741739555129" duration="19514000" />
+      <workItem from="1741826143520" duration="13309000" />
+      <workItem from="1741846639532" duration="2380000" />
     </task>
     <servers />
   </component>
@@ -348,14 +358,16 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Backend$Migrate.coverage" NAME="Migrate 覆盖结果" MODIFIED="1741315908048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Backend$Migrate.coverage" NAME="Migrate 覆盖结果" MODIFIED="1741844268108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Backend$dateCaculate.coverage" NAME="dateCaculate 覆盖结果" MODIFIED="1741847386988" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/arbitrage_app" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$Test__arbitrage_app_tests_ArbitrageDataTestCase_test_save_function.coverage" NAME="Test: arbitrage_app.tests.ArbitrageDataTestCase.test_save_function 覆盖结果" MODIFIED="1740618576202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$crawler.coverage" NAME="crawler 覆盖结果" MODIFIED="1741240860947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter_app" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$manage.coverage" NAME="RunServer 覆盖结果" MODIFIED="1740724887984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1740724863463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$celery.coverage" NAME="celery 覆盖结果" MODIFIED="1741672534654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Backend$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1741315900851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Backend$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1741765611657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Backend$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1741844283275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Backend$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1741842234827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Backend$models.coverage" NAME="models 覆盖结果" MODIFIED="1741856566440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/helper_app" />
     <SUITE FILE_PATH="coverage/Backend$settings.coverage" NAME="settings 覆盖结果" MODIFIED="1741240096793" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GXJY" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$Migrate.coverage" NAME="Migrate 覆盖结果" MODIFIED="1740724872939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$2024_12_17.coverage" NAME="易棉销售数据爬虫2024-12-17 覆盖结果" MODIFIED="1741230888635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/filter_app" />

@@ -231,7 +231,8 @@ def crawl_data(self, task_id):
                     update_date=today,
                     bid=bid,
                     settlement=settlement,
-                    freight=freight
+                    freight=freight,
+
                 )
                 product.save()
                 print(f"批号 {batch_number}，日期 {today}，插入成功")
