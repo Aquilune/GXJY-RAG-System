@@ -564,14 +564,14 @@ onMounted(() => {
 .data-box-card {
   text-align: center;
   width: 110vh;   
-  height: 95vh;
+  height: 94vh;
 }
 
 .filter-box-card {
   overflow-y: scroll;
   text-align: center;
   width: 70vh;
-  height: 95vh;
+  height: 94vh;
   justify-content: center;
 }
 

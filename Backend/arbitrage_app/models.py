@@ -44,6 +44,7 @@ class ArbitrageData(models.Model):
 
     # 重写 save 方法，在保存数据到数据库之前进行套利相关的计算
     def save(self, *args, **kwargs):
+        print(self.near_month_code, self.far_month_code)
         if self.near_month_code and self.far_month_code:
 
             provider = get_data_provider()
@@ -61,4 +62,4 @@ class ArbitrageData(models.Model):
             # 调用父类的 save 方法，将数据保存到数据库中
             super().save(*args, **kwargs)
         else:
-            print("WindPy 连接失败，请检查网络或授权。")
+            print("请输入合约代码")

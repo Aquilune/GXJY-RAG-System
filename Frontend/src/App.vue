@@ -21,7 +21,7 @@
         </el-menu-item>
         <el-menu-item index="/filter">
           <el-icon><Filter /></el-icon>
-          <span>易棉筛选</span>
+          <span>基差筛选</span>
         </el-menu-item>
         <el-menu-item index="/trend">
           <el-icon><TrendCharts /></el-icon>
@@ -30,6 +30,10 @@
         <el-menu-item index="/map">
           <el-icon><MapLocation /></el-icon>
           <span>地图指引</span>
+        </el-menu-item>
+        <el-menu-item index="/search">
+          <el-icon><Search /></el-icon>
+          <span>仓单查询</span>
         </el-menu-item>
         <el-menu-item index="/helper">
           <el-icon><ChatDotRound /></el-icon>

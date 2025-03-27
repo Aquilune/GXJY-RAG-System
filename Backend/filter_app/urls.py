@@ -12,6 +12,6 @@ urlpatterns = [
     path('deleteData/<str:date>/', delete_data_by_date, name='delete_data_by_date')
 ]
 
-websocket_urlpatterns = [
-    re_path(r'ws/progress/(?P<task_id>[^/]+)/$', ProgressConsumer.as_asgi()),
-]
+# websocket_urlpatterns = [
+#     re_path(r'ws/progress/(?P<task_id>[^/]+)/$', ProgressConsumer.as_asgi()),
+# ]

@@ -10,8 +10,8 @@ const htmlContent = ref<string>('');
 
 onMounted(async () => {
   try {
-    const response = await axios.get('/src/assets/cottonFactory.html');
-    htmlContent.value = response.data;
+    // const response = await axios.get('/src/assets/cottonFactory.html');
+    // htmlContent.value = response.data;
   } catch (error) {
     console.error('读取 HTML 文件失败:', error);
   }

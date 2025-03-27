@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "channels",
     'arbitrage_app',
     "filter_app",
-    'helper_app'
+    'helper_app',
+    'search_app'
 ]
 
 MIDDLEWARE = [
