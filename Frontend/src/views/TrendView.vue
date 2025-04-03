@@ -563,15 +563,15 @@ onMounted(() => {
 <style scoped>
 .data-box-card {
   text-align: center;
-  width: 110vh;   
-  height: 94vh;
+  width: 105vh;   
+  height: 93vh;
 }
 
 .filter-box-card {
   overflow-y: scroll;
   text-align: center;
-  width: 70vh;
-  height: 94vh;
+  width: 69vh;
+  height: 93vh;
   justify-content: center;
 }
 

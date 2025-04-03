@@ -1,6 +1,6 @@
 <template>
-  <el-row :gutter="20">  <!-- gutter 控制间距 -->
-    <el-col :span="12">   <!-- 各占50%宽度 -->
+  <el-row :gutter="20">
+    <el-col :span="12">
       <el-card class="card-box">
         <el-form :model="formData" label-width="16vh" :label-position="'right'" width="600px" @submit.prevent="handleSubmit" >
           <el-form-item label="近月合约">
@@ -10,16 +10,19 @@
             <el-input v-model="formData.far_code" placeholder="输入远月合约代码，格式例如：CF2504" />
           </el-form-item>
           <el-form-item label="交易费用">
-            <el-input-number v-model="formData.trading_fee" :precision="2" :step="0.1" />
+            <el-input-number v-model="formData.trading_fee" :precision="2" :step="0.01" />
           </el-form-item>
           <el-form-item label="交割费用">
-            <el-input-number v-model="formData.delivery_fee" :precision="2" :step="0.1" />
+            <el-input-number v-model="formData.delivery_fee" :precision="2" :step="0.01" />
+          </el-form-item>
+          <el-form-item label="仓储费用">
+            <el-input-number v-model="formData.storage_fee" :precision="2" :step="0.01" />
           </el-form-item>
           <el-form-item label="资金费用">
-            <el-input-number v-model="formData.capital_cost" :precision="2" :step="0.1" />
+            <el-input-number v-model="formData.capital_cost" :precision="2" :step="0.01" />
           </el-form-item>
           <el-form-item label="增值税">
-            <el-input-number v-model="formData.vat" :precision="2" :step="0.1" />
+            <el-input-number v-model="formData.vat" :precision="2" :step="0.01" />
           </el-form-item>
           <el-form-item label="日期范围">
             <el-date-picker
@@ -47,30 +50,32 @@
       </el-card>
     </el-col>
     <el-col :span="12">
-      <el-card class="info-box">
+      <el-card class="info-box" v-loading="loadingChart"
+            element-loading-text="Loading..."
+            :element-loading-spinner="svg"
+            element-loading-svg-view-box="-10, -10, 50, 50">
         <el-tabs v-model="activeExchange">
           <!-- 大商所(DCE)表格 -->
           <el-tab-pane label="大商所" name="dce">
-            <!-- 添加带有滚动样式的 div -->
-            <div style="height: 80vh; overflow: auto;">
-              <el-table :data="infoForm.dce" border style="width: 100%">
-                <el-table-column prop="品种" label="品种" width="120" />
-                <el-table-column prop="代码" label="代码" width="100" />
-                <el-table-column prop="合约单位（吨/手）" label="合约单位" width="150">
-                  <template #default="{row}">{{ row['合约单位（吨/手）'] }} 吨/手</template>
-                </el-table-column>
-                <el-table-column prop="最小交割单位" label="最小交割单位" width="180" />
-                <el-table-column prop="最后交易日" label="最后交易日" width="150" />
-                <el-table-column prop="交割月份" label="交割月份" width="150" />
-                <el-table-column prop="交割类型" label="交割类型" width="150" />
-                <el-table-column prop="仓单类型" label="仓单类型" width="180" />
-                <el-table-column prop="仓单有效期" label="仓单有效期" width="180" />
-                <el-table-column prop="仓储费（元/吨·天）" label="仓储费" width="150">
-                  <template #default="{row}">{{ row['仓储费（元/吨·天）'] }} 元/吨·天</template>
-                </el-table-column>
-                <el-table-column prop="注意" label="注意事项" />
-              </el-table>
-            </div>
+              <div class="table-wrapper">
+                <el-table :data="infoForm.dce" border class="custom-table">
+                  <el-table-column prop="品种" label="品种" width="120" />
+                  <el-table-column prop="代码" label="代码" width="100" />
+                  <el-table-column prop="合约单位（吨/手）" label="合约单位" width="150">
+                    <template #default="{ row }">{{ row["合约单位（吨/手）"] }} 吨/手</template>
+                  </el-table-column>
+                  <el-table-column prop="最小交割单位" label="最小交割单位" width="180" />
+                  <el-table-column prop="最后交易日" label="最后交易日" width="150" />
+                  <el-table-column prop="交割月份" label="交割月份" width="150" />
+                  <el-table-column prop="交割类型" label="交割类型" width="150" />
+                  <el-table-column prop="仓单类型" label="仓单类型" width="180" />
+                  <el-table-column prop="仓单有效期" label="仓单有效期" width="180" />
+                  <el-table-column prop="仓储费（元/吨·天）" label="仓储费" width="150">
+                    <template #default="{ row }">{{ row["仓储费（元/吨·天）"] }} 元/吨·天</template>
+                  </el-table-column>
+                  <el-table-column prop="注意" label="注意事项" />
+                </el-table>
+              </div>
           </el-tab-pane>
 
           <!-- 郑商所(CZCE)表格 -->
@@ -158,6 +163,18 @@ import { onMounted, reactive, ref } from 'vue';
 import axios from 'axios';
 import { apiUrl } from '@/config';
 
+const loadingChart = ref(true)
+const svg = `
+        <path class="path" d="
+          M 30 15
+          L 28 17
+          M 25.61 25.61
+          A 15 15, 0, 0, 1, 15 30
+          A 15 15, 0, 1, 1, 27.99 7.5
+          L 15 15
+        " style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"/>
+      `
+
 const formData = reactive({
   near_code: '',
   far_code: '',
@@ -203,6 +220,7 @@ onMounted(async () => {
         infoForm.czce = response.data.data.CZCE;
         infoForm.ine = response.data.data.INE;
         infoForm.gfex = response.data.data.GFEX;
+        loadingChart.value = false;
     } catch (error) {
         console.error('读取商所数据有误', error);
     }
@@ -240,5 +258,16 @@ onMounted(async () => {
 .el-input-number {
   width: 200px;
   margin: 0 5px;
+}
+
+.table-wrapper {
+  height: 80vh; 
+  overflow-y: auto;
+  width: calc(100% - 20px);
+  overflow-x: auto;
+}
+
+.custom-table .el-table__body-wrapper {
+  overflow-x: hidden !important;
 }
 </style>    

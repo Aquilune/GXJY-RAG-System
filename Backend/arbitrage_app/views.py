@@ -8,57 +8,89 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 
 from .configurations import URL_STYLE_MAPPING, URL_TO_EXCHANGE
+from .data_providers import get_data_provider
 from .models import ArbitrageData
 
 
 @csrf_exempt
 def calculate_arbitrage(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body.decode('utf-8'))
-            near_code = data.get('near_code')
-            far_code = data.get('far_code')
-            storage_fee = float(data.get('storage_fee'))
-            trading_fee = float(data.get('trading_fee'))
-            delivery_fee = float(data.get('delivery_fee'))
-            capital_cost = float(data.get('capital_cost'))
-            vat = float(data.get('vat'))
-            stamp_duty = float(data.get('stamp_duty'))
-            cost_tax = float(data.get('cost_tax'))
-            first_delivery_date = datetime.strptime(data.get('dateRange')[0], "%Y-%m-%d")
-            second_delivery_date = datetime.strptime(data.get('dateRange')[1], "%Y-%m-%d")
-            # delivery_date_str = data.get('delivery_date')
+    if request.method != 'POST':
+        return JsonResponse({"error": "请求方式错误"}, status=405)
 
-            # 检查 delivery_date_str 是否为 None
-            # if delivery_date_str is None:
-            #     return HttpResponse("缺少 delivery_date 字段", status=400)
+    try:
+        data = json.loads(request.body.decode('utf-8'))
 
-            # delivery_date = datetime.datetime.strptime(delivery_date_str, '%Y-%m-%d').date()
-            # inter_period_time = int(data.get('inter_period_time'))
+        # 解析必填字段
+        near_code = data.get('near_code')
+        far_code = data.get('far_code')
+        trading_fee = float(data.get('trading_fee'))
+        delivery_fee = float(data.get('delivery_fee'))
+        storage_fee = float(data.get('storage_fee'))
+        capital_cost = float(data.get('capital_cost'))
+        vat = float(data.get('vat'))
 
-            # 创建 ArbitrageData 实例
-            arbitrage_data = ArbitrageData(
-                near_month_code=near_code,
-                far_month_code=far_code,
-                storage_fee=storage_fee,
-                trading_fee=trading_fee,
-                delivery_fee=delivery_fee,
-                capital_cost=capital_cost,
-                vat=vat,
-                stamp_duty=stamp_duty,
-                cost_tax=cost_tax,
-                first_delivery_date=first_delivery_date,
-                second_delivery_date=second_delivery_date
-                # delivery_date=delivery_date,
-                # inter_period_time=inter_period_time
-            )
-            # 调用重写的 save 方法保存数据
-            arbitrage_data.save(near_code, far_code)
-            return HttpResponse("数据保存成功！")
-        except (KeyError, ValueError, json.JSONDecodeError) as e:
-            return HttpResponse(f"数据解析错误: {str(e)}", status=400)
-    else:
-        return HttpResponse("WindPy 连接失败，请检查网络或授权。")
+        # 解析日期
+        date_range = data.get('dateRange', [])
+        if len(date_range) != 2:
+            return JsonResponse({"error": "dateRange 格式错误"}, status=400)
+
+        first_delivery_date = datetime.strptime(date_range[0], "%Y-%m-%d").date()
+        second_delivery_date = datetime.strptime(date_range[1], "%Y-%m-%d").date()
+
+        # 确保交割日期正确
+        if first_delivery_date >= second_delivery_date:
+            return JsonResponse({"error": "第一合约交割日期必须早于第二合约交割日期"}, status=400)
+
+        # 计算跨期时间
+        inter_period_time = (second_delivery_date - first_delivery_date).days
+        if inter_period_time <= 0:
+            return JsonResponse({"error": "跨期时间必须大于0"}, status=400)
+
+        # 获取市场价格
+        # provider = get_data_provider()
+        # near_month_price = provider.get_near_month_price(near_code)
+        # far_month_price = provider.get_near_month_price(far_code)
+        # print(near_month_price, far_month_price)
+        near_month_price = 24.6
+        far_month_price = 25.6
+
+        # 计算套利相关数据
+        # storage_fee = 0.5 * inter_period_time  # 仓储费用
+        stamp_duty = (near_month_price + far_month_price) * 0.0003  # 印花税
+        cost_tax = (storage_fee + trading_fee + delivery_fee) / 1.06 * 0.06  # 成本税
+        tax = vat + stamp_duty - cost_tax  # 税值
+        price_spread = far_month_price - near_month_price  # 价差
+        arbitrage_cost = storage_fee + trading_fee + delivery_fee + capital_cost + tax  # 套利成本
+        net_spread = price_spread - arbitrage_cost  # 净差价
+        annual_return = (net_spread / near_month_price / inter_period_time) * 360 if near_month_price > 0 else 0  # 年收益率
+
+        # 存入数据库
+        arbitrage_data = ArbitrageData.objects.create(
+            near_month_code=near_code,
+            far_month_code=far_code,
+            near_month_price=near_month_price,
+            far_month_price=far_month_price,
+            trading_fee=trading_fee,
+            delivery_fee=delivery_fee,
+            capital_cost=capital_cost,
+            vat=vat,
+            first_delivery_date=first_delivery_date,
+            second_delivery_date=second_delivery_date,
+            inter_period_time=inter_period_time,
+            storage_fee=storage_fee,
+            stamp_duty=stamp_duty,
+            cost_tax=cost_tax,
+            tax=tax,
+            price_spread=price_spread,
+            arbitrage_cost=arbitrage_cost,
+            net_spread=net_spread,
+            annual_return=annual_return
+        )
+
+        return JsonResponse({"message": "套利数据计算成功", "id": arbitrage_data.id})
+
+    except (KeyError, ValueError, json.JSONDecodeError) as e:
+        return JsonResponse({"error": f"数据解析错误: {str(e)}"}, status=400)
 
 
 def fetch_table_data(url, style):
