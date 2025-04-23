@@ -5,6 +5,7 @@ import FilterView from '../views/FilterView.vue'
 import TrendView from '../views/TrendView.vue'
 import MapView from '../views/MapView.vue'
 import SearchView from '../views/SearchView.vue'
+import CalculateView from '../views/CalculateView.vue'
 import HelperView from '../views/HelperView.vue'
 
 const router = createRouter({
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/map',
       name: 'map',
       component: MapView,
+    },
+    {
+      path: '/calculate',
+      name: 'calculate',
+      component: CalculateView,
     },
     {
       path: '/helper',

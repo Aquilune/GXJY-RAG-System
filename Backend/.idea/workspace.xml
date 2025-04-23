@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b3261f6-b8f9-4c3b-93bf-f8ca3cc81d0a" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/../Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/views/ArbitrageView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/views/ArbitrageView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Frontend/src/views/TrendView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/src/views/TrendView.vue" afterDir="false" />
-    </list>
+    <list default="true" id="1b3261f6-b8f9-4c3b-93bf-f8ca3cc81d0a" name="Changes" comment="Changes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +74,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -328,7 +322,15 @@
       <workItem from="1742864742793" duration="14509000" />
       <workItem from="1743036037896" duration="16993000" />
       <workItem from="1743381689635" duration="6434000" />
-      <workItem from="1743640671226" duration="2980000" />
+      <workItem from="1743640671226" duration="3356000" />
+      <workItem from="1743644370148" duration="167000" />
+      <workItem from="1743767835172" duration="3976000" />
+      <workItem from="1743985856748" duration="890000" />
+      <workItem from="1744176172262" duration="1096000" />
+      <workItem from="1744332465433" duration="4346000" />
+      <workItem from="1744381689776" duration="1142000" />
+      <workItem from="1744935809281" duration="4714000" />
+      <workItem from="1745230822352" duration="3594000" />
     </task>
     <servers />
   </component>
@@ -373,7 +375,7 @@
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$manage.coverage" NAME="RunServer 覆盖结果" MODIFIED="1740724887984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GXJY_RAG_System$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1740724863463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$celery.coverage" NAME="celery 覆盖结果" MODIFIED="1741672534654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GXJY_RAG_BACKEND$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1743643493032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GXJY_RAG_BACKEND$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1745232348591" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Backend$MakeMigurations.coverage" NAME="MakeMigurations 覆盖结果" MODIFIED="1742546726256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Backend$RunServer.coverage" NAME="RunServer 覆盖结果" MODIFIED="1742547345993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Backend$models.coverage" NAME="models 覆盖结果" MODIFIED="1741856566440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/helper_app" />

@@ -34,6 +34,10 @@
           <el-icon><Search /></el-icon>
           <span>仓单查询</span>
         </el-menu-item>
+        <el-menu-item index="/calculate">
+          <el-icon><Cpu /></el-icon>
+          <span>升贴水计算</span>
+        </el-menu-item>
         <el-menu-item index="/helper">
           <el-icon><ChatDotRound /></el-icon>
           <span>期货助手</span>
