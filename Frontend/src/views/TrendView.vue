@@ -37,6 +37,11 @@
                 </el-select>
               </el-form-item>
             </div>
+            <el-form-item label="出价方式" style="width: 100%;">
+              <el-select v-model="filterForm.quotation_method" placeholder="请选择出价方式" multiple>
+                <el-option v-for="quotation_method in quotation_methods" :key="quotation_method.value" :label="quotation_method.label" :value="quotation_method.value"></el-option>
+              </el-select>
+            </el-form-item>
             <el-form-item label="长度">
               <el-slider
                 v-model="filterForm.lengthRange"
@@ -180,7 +185,7 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import * as echarts from 'echarts';
-import { apiUrl, productionRegions, productionPlaces, productionTypes, productionWarehouses, productionWarehousesArea } from '@/config';
+import { apiUrl, productionRegions, productionPlaces, productionTypes, productionWarehouses, productionWarehousesArea, quotation_methods } from '@/config';
 import { ElLoading, ElMessage } from 'element-plus';
 
 const loadingChart = ref(true)
@@ -200,12 +205,37 @@ const showDeleteDialog = ref(false);
 // 用户选择的删除日期
 const deleteDate = ref('');
 
+// 出价方式选项
+interface QuotationMethod {
+  label: string
+  value: string
+}
+
+// 出价方式列表
+const quotation_methods = ref<QuotationMethod[]>([])
+
+// 获取出价方式
+const fetchQuotationMethods = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/quotation/`)
+    quotation_methods.value = response.data.quotation_methods
+  } catch (error) {
+    console.error('Failed to fetch quotation methods:', error)
+  }
+}
+
+// 页面加载时请求
+onMounted(() => {
+  fetchQuotationMethods()
+})
+
 // 定义 filterForm 的类型
 interface FilterForm {
   region: string[];
   place: string[];
   type: string[];
   warehouseArea: string[];
+  quotation_method: string[];
   lengthRange: [number, number];
   strengthRange: [number, number];
   codeValueRange: [number, number];
@@ -222,6 +252,7 @@ const filterForm = ref<FilterForm>({
   place: [],
   type: [],
   warehouseArea: [],
+  quotation_method: [],
   lengthRange: [0, 100],
   strengthRange: [0, 100],
   codeValueRange: [0, 10],
@@ -279,6 +310,7 @@ const applyFilter = () => {
     place: filterForm.value.place.join(','),
     type: filterForm.value.type.join(','),
     warehouse_area: filterForm.value.warehouseArea.join(','),
+    quotation_method: filterForm.value.quotation_method.join(','),
     yearMin: filterForm.value.yearRange[0],
     yearMax: filterForm.value.yearRange[1],
   };

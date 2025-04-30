@@ -11,9 +11,11 @@ from .models import ProductData
 
 from .task import crawl_data
 from django.http import JsonResponse
-
+from django.db.models import Q
 
 @csrf_exempt
+
+
 def trigger_crawl(request):
     try:
         # task_id = str(uuid.uuid4())
@@ -142,12 +144,41 @@ def comparison_view(request):
             place = data.get('place')
             type_ = data.get('type')  # 避免使用 Python 关键字 type
             warehouseArea = data.get('warehouse_area')
+            quotation_method = data.get('quotation_method')
 
             # 将字符串转换为列表
             region_list = region.split(',') if region else []
             place_list = place.split(',') if place else []
             type_list = type_.split(',') if type_ else []
             warehouseArea_list = warehouseArea.split(',') if warehouseArea else []
+            quotation_method_list = quotation_method.split(',') if quotation_method else []
+
+            quotation_method_conditions = []
+            quotation_method2_conditions = []
+
+            for method in quotation_method_list:
+                if method == '一口价':
+                    # 一口价
+                    quotation_method_conditions.append('一口价')
+                elif method.startswith('点价-'):
+                    # 点价-数字，提取数字
+                    number = method.replace('点价-', '')
+                    if number.isdigit():
+                        quotation_method2_conditions.append(int(number))
+
+            if quotation_method_conditions and quotation_method2_conditions:
+                queryset = queryset.filter(
+                    (
+                        Q(quotation_method__in=quotation_method_conditions)
+                    ) | (
+                        Q(quotation_method='点价', quotation_method2__in=quotation_method2_conditions)
+                    )
+                )
+            elif quotation_method_conditions:
+                queryset = queryset.filter(quotation_method__in=quotation_method_conditions)
+            elif quotation_method2_conditions:
+                queryset = queryset.filter(quotation_method='点价', quotation_method2__in=quotation_method2_conditions)
+
             dateMin = data.get('dateMin')
             dateMax = data.get('dateMax')
             lengthMax = data.get('lengthMax')
@@ -213,17 +244,35 @@ def comparison_view(request):
             if yearMin:
                 queryset = queryset.filter(batch_product_year__gte=yearMin)
 
-            queryset = queryset.filter(quotation_method="点价")
+            # queryset = queryset.filter(quotation_method="点价")
 
-            print(queryset.query)
+            # 按日期分组
             # 按日期分组
             date_groups = {}
             for item in queryset:
                 date = item.update_date
                 if date not in date_groups:
                     date_groups[date] = []
-                # 将出库基差和重量作为元组添加到对应日期的列表中
-                date_groups[date].append((item.outbound_basis, item.weight))
+
+                basis_value = item.outbound_basis
+                if item.quotation_method == '一口价':
+                    basis_value = item.quotation_method2
+
+                    # 超过10000跳过
+                    if float(basis_value) > 10000:
+                        continue
+
+                # 尝试转成浮点数
+                try:
+                    basis_value = float(basis_value)
+                except (TypeError, ValueError):
+                    # 转换失败，比如是None或者空字符串，跳过
+                    continue
+
+
+                date_groups[date].append((basis_value, item.weight))
+
+                date_groups[date].append((basis_value, item.weight))
 
 
             # 计算每个日期的中位数和 25%-75% 分位数区间
@@ -276,3 +325,31 @@ def delete_data_by_date(request, date):
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are supported'}, status=405)
+
+
+@csrf_exempt
+def get_quotation_methods(request):
+    if request.method == 'GET':
+        # 查询所有的quotation_method和quotation_method2
+        records = ProductData.objects.values('quotation_method', 'quotation_method2').distinct()
+
+        methods = []
+
+        # 先加上固定的一口价
+        methods.append({
+            'label': '一口价',
+            'value': '一口价'
+        })
+
+        # 加上点价-数字的组合
+        for record in records:
+            if record['quotation_method'] == '点价' and record['quotation_method2'] is not None:
+                methods.append({
+                    'label': f"点价-{record['quotation_method2']}",
+                    'value': f"点价-{record['quotation_method2']}"
+                })
+
+        return JsonResponse({'quotation_methods': methods}, safe=False)
+
+    else:
+        return JsonResponse({'error': 'Only GET requests are supported'}, status=405)
