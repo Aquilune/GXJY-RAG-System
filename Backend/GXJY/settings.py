@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'arbitrage_app',
     "filter_app",
     'helper_app',
-    'search_app'
+    'search_app',
+    'calculate_app'
 ]
 
 MIDDLEWARE = [
