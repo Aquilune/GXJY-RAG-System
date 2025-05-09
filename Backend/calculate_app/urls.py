@@ -1,9 +1,13 @@
 from django.urls import path
-from . import views
-from .views import CertificateUploadView
+from .views import CottonConfigAPI, CertificateAPI, CertificateUploadAPI
 
 urlpatterns = [
-    path('configs/', views.cotton_config_view),  # GET列表/POST创建
-    path('configs/<int:config_id>/', views.cotton_config_view),  # GET详情/DELETE删除
-    path('upload/', CertificateUploadView.as_view()),
+    # 配置管理
+    path('configs/', CottonConfigAPI.as_view(), name='config-list'),
+    path('configs/<uuid:config_id>/', CottonConfigAPI.as_view(), name='config-detail'),
+
+    # 证书管理
+    path('certificates/', CertificateAPI.as_view(), name='cert-list'),
+    path('certificates/<uuid:cert_id>/', CertificateAPI.as_view(), name='cert-detail'),
+    path('certificates/upload/', CertificateUploadAPI.as_view(), name='cert-upload'),
 ]

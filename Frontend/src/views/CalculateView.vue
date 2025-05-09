@@ -672,7 +672,7 @@ onMounted(() => {
 
 
 // 上传配置
-const uploadUrl = computed(() => `${apiUrl}/calculate/upload/`)
+const uploadUrl = computed(() => `${apiUrl}/calculate/certificates/upload/`)
 const uploadParams = ref({
   source: 'web_upload'
 })
@@ -726,7 +726,7 @@ const handleError = (err) => {
 const fetchCertificates = async () => {
   try {
     loading.value = true
-    const res = await axios.get(`${apiUrl}/certificates/`)
+    const res = await axios.get(`${apiUrl}/calculate/certificates/`)
     certificateList.value = res.data.data
   } catch (error) {
     ElMessage.error('获取证书列表失败')

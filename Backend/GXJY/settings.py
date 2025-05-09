@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'calculate_app.middleware.FileValidationMiddleware'
 ]
 
 ROOT_URLCONF = 'GXJY.urls'

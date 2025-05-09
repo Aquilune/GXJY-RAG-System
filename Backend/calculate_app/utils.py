@@ -1,44 +1,84 @@
+from datetime import datetime
+
 import pandas as pd
+from pathlib import Path
+from lupa import LuaRuntime
+import json
 
 
-def parse_certificate(file_path):
-    """将Excel/CSV证书转换为Lua所需的字典格式"""
-    if file_path.endswith('.xlsx'):
-        df = pd.read_excel(file_path)
-    else:
-        df = pd.read_csv(file_path)
+def process_excel_with_lua(excel_path, lua_script_path):
+    """处理Excel文件并执行Lua计算"""
+    # 1. 读取Excel文件
+    try:
+        df = pd.read_excel(excel_path, header=None)  # 无表头读取
+        log(f"成功读取Excel文件: {excel_path}")
+    except Exception as e:
+        raise ValueError(f"Excel文件读取失败: {str(e)}")
 
-    data = df.iloc[0].to_dict()
-
-    # 字段映射（示例）
-    return {
-        'LotNumber': data.get('批号', ''),
-        'B1': float(data.get('白棉1级', '0%').strip('%')) / 100,
-        'LAvg': float(data.get('平均长度', '').replace('mm', '')),
-        # 其他字段转换...
+    # 2. 定义数据映射关系（示例配置）
+    cell_mapping = {
+        "LotNumber": (3, 2),  # 第3行第2列
+        "Packages": (5, 4),  # 第5行第4列
+        "B1": (8, 3),  # 第8行第3列
+        "LAvg": (12, 5),  # 第12行第5列
+        # 其他字段映射...
     }
 
+    # 3. 提取单元格数据
+    input_data = {}
+    for field, (row, col) in cell_mapping.items():
+        try:
+            # Excel行列索引从0开始
+            value = df.iloc[row - 1, col - 1]
 
-from lupa import LuaRuntime
+            # 处理空值和特殊值
+            if pd.isna(value):
+                value = None
+            elif isinstance(value, str):
+                value = value.strip()
 
+            input_data[field] = value
+            log(f"提取字段 {field}: {value} (原始位置: R{row}C{col})")
 
-def execute_lua(input_data):
+        except IndexError:
+            raise ValueError(f"无效的单元格位置: R{row}C{col}")
+
+    # 4. 加载Lua脚本
     lua = LuaRuntime()
-
-    with open('calculator.lua', 'r', encoding='utf-8') as f:
+    with open(lua_script_path, 'r', encoding='utf-8') as f:
         lua_code = f.read()
 
-    lua.execute(lua_code)
-    lua_func = lua.globals().Count
-    lua_table = lua.table_from(input_data)
+    # 5. 执行Lua计算
+    try:
+        lua.execute(lua_code)
+        lua_func = lua.globals().Count
 
-    result = lua_func(lua_table)  # 调用Lua主函数
+        # 转换数据为Lua table
+        lua_table = lua.table_from(input_data)
 
-    # 将Lua数组结果转换为字典
-    return {
-        'premium': result[16],  # 根据实际输出位置调整
-        'details': {
-            'color_grades': result[17:20],
-            'length_dist': result[20:25]
+        # 执行计算
+        result = lua_func(lua_table)
+        log("Lua计算完成，返回结果")
+
+        # 6. 处理返回结果
+        if not result or len(result) < 33:
+            raise ValueError("Lua返回结果格式不正确")
+
+        return {
+            "lot_number": str(result[1]),
+            "premium": float(result[17]),
+            "details": {
+                "color_grades": [float(result[18]), float(result[19]), float(result[20])],
+                "length_dist": [float(result[21]), float(result[22]), float(result[23])]
+            },
+            "is_rejected": bool(result[30]),
+            "rejection_reason": str(result[31] or "")
         }
-    }
+
+    except Exception as e:
+        raise RuntimeError(f"Lua执行错误: {str(e)}")
+
+
+def log(message):
+    """日志记录函数"""
+    print(f"[{datetime.now().isoformat()}] {message}")

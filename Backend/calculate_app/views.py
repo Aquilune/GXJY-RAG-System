@@ -1,196 +1,208 @@
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import json
+from pathlib import Path
 
+from django.core.paginator import Paginator, EmptyPage
+from rest_framework import status
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import CottonConfig, CottonCertificate, CalculationResult
-from django.core.exceptions import ValidationError
-from datetime import datetime
-
-from .serializers import CertificateUploadSerializer
+from .models import CottonConfig, CalculationResult
+from .serializers import CottonConfigSerializer
+from .utils import process_excel_with_lua
 
 
-@csrf_exempt
-def cotton_config_view(request, config_id=None):
-    try:
-        if request.method == 'GET':
-            return handle_get(request, config_id)
-        elif request.method == 'POST':
-            return handle_post(request)
-        elif request.method == 'DELETE':
-            return handle_delete(request, config_id)
+class BaseAPIView(APIView):
+    """所有API视图的基类，提供统一错误处理"""
+
+    def handle_exception(self, exc):
+        if isinstance(exc, ValidationError):
+            return Response(
+                {'success': False, 'error': str(exc)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        return super().handle_exception(exc)
+
+class CottonConfigAPI(BaseAPIView):
+    """配置管理统一接口"""
+
+    def get(self, request, config_id=None):
+        if config_id:
+            # 获取单个配置详情
+            try:
+                config = CottonConfig.objects.get(id=config_id)
+                serializer = CottonConfigSerializer(config)
+                return Response({
+                    'success': True,
+                    'data': serializer.data
+                })
+            except CottonConfig.DoesNotExist:
+                return Response({
+                    'success': False,
+                    'error': '配置不存在'
+                }, status=status.HTTP_404_NOT_FOUND)
         else:
-            return JsonResponse({'success': False, 'error': 'Method not allowed'}, status=405)
+            # 获取配置列表
+            configs = CottonConfig.objects.all().order_by('-created_at')
+            serializer = CottonConfigSerializer(configs, many=True)
+            return Response({
+                'success': True,
+                'data': serializer.data,
+                'count': len(serializer.data)
+            })
 
-    except Exception as e:
-        return JsonResponse({
+    def post(self, request):
+        """创建新配置"""
+        serializer = CottonConfigSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'success': True,
+                'data': serializer.data
+            }, status=status.HTTP_201_CREATED)
+        return Response({
             'success': False,
-            'error': str(e),
-            'timestamp': datetime.now().isoformat()
-        }, status=500)
+            'error': serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
 
-
-def handle_get(request, config_id):
-    """处理GET请求"""
-    if config_id:
-        # 获取单个配置详情
+    def delete(self, request, config_id):
+        """删除配置"""
         try:
             config = CottonConfig.objects.get(id=config_id)
-            return JsonResponse({
+            config.delete()
+            return Response({
                 'success': True,
-                'data': {
-                    'id': config.id,
-                    'name': config.name,
-                    'length_strength_params': config.length_strength_params,
-                    'micronaire_params': config.micronaire_params,
-                    'hand_machine_length_params': config.hand_machine_length_params,
-                    'processing_quality_params': config.processing_quality_params,
-                    'origin_params': config.origin_params,
-                    'fiber_quality_params': config.fiber_quality_params,
-                    'rejection_criteria': config.rejection_criteria,
-                    'policy_params': config.policy_params,
-                    'created_at': config.created_at.isoformat(),
-                    'updated_at': config.updated_at.isoformat()
-                }
+                'message': '配置已删除'
             })
         except CottonConfig.DoesNotExist:
-            return JsonResponse({
+            return Response({
                 'success': False,
-                'error': f'Configuration with id {config_id} not found'
-            }, status=404)
-    else:
-        # 获取配置列表
-        configs = CottonConfig.objects.all().order_by('-created_at')
-        data = [{
-            'id': config.id,
-            'name': config.name,
-            'created_at': config.created_at.isoformat(),
-            'updated_at': config.updated_at.isoformat()
-        } for config in configs]
-        return JsonResponse({
-            'success': True,
-            'data': data,
-            'count': len(data)
-        }, safe=False)
+                'error': '配置不存在'
+            }, status=status.HTTP_404_NOT_FOUND)
 
 
-def handle_post(request):
-    """处理POST请求（创建新配置）"""
-    try:
-        data = json.loads(request.body)
-
-        # 必填字段验证
-        if not data.get('name'):
-            raise ValidationError('Configuration name is required')
-
-        # 创建配置
-        config = CottonConfig.objects.create(
-            name=data['name'],
-            length_strength_params=data.get('length_strength_params', []),
-            micronaire_params=data.get('micronaire_params', []),
-            hand_machine_length_params=data.get('hand_machine_length_params', []),
-            processing_quality_params=data.get('processing_quality_params', []),
-            origin_params=data.get('origin_params', []),
-            fiber_quality_params=data.get('fiber_quality_params', []),
-            rejection_criteria=data.get('rejection_criteria', []),
-            policy_params=data.get('policy_params', [])
-        )
-
-        return JsonResponse({
-            'success': True,
-            'message': 'Configuration created successfully',
-            'id': config.id,
-            'name': config.name
-        }, status=201)
-
-    except json.JSONDecodeError:
-        return JsonResponse({
-            'success': False,
-            'error': 'Invalid JSON format'
-        }, status=400)
-    except ValidationError as e:
-        return JsonResponse({
-            'success': False,
-            'error': str(e)
-        }, status=400)
-    except Exception as e:
-        return JsonResponse({
-            'success': False,
-            'error': f'Failed to create configuration: {str(e)}'
-        }, status=500)
+from .models import CottonCertificate
+from .serializers import CertificateSerializer
 
 
-def handle_delete(request, config_id):
-    """处理DELETE请求"""
-    if not config_id:
-        return JsonResponse({
-            'success': False,
-            'error': 'Configuration ID is required for deletion'
-        }, status=400)
+class CertificateAPI(BaseAPIView):
+    """证书管理统一接口"""
 
-    try:
-        config = CottonConfig.objects.get(id=config_id)
-        config.delete()
-        return JsonResponse({
-            'success': True,
-            'message': f'Configuration "{config.name}" deleted successfully'
-        }, status=200)
+    def get(self, request, cert_id=None):
+        if cert_id:
+            # 获取证书详情
+            try:
+                cert = CottonCertificate.objects.get(id=cert_id)
+                serializer = CertificateSerializer(cert)
+                return Response({
+                    'success': True,
+                    'data': serializer.data
+                })
+            except CottonCertificate.DoesNotExist:
+                return Response({
+                    'success': False,
+                    'error': '证书不存在'
+                }, status=status.HTTP_404_NOT_FOUND)
+        else:
+            # 分页查询证书列表
+            page = request.query_params.get('page', 1)
+            page_size = request.query_params.get('page_size', 10)
 
-    except CottonConfig.DoesNotExist:
-        return JsonResponse({
-            'success': False,
-            'error': f'Configuration with id {config_id} not found'
-        }, status=404)
-    except Exception as e:
-        return JsonResponse({
-            'success': False,
-            'error': f'Failed to delete configuration: {str(e)}'
-        }, status=500)
+            queryset = CottonCertificate.objects.all().order_by('-created_at')
+            paginator = Paginator(queryset, page_size)
 
+            try:
+                certs = paginator.page(page)
+                serializer = CertificateSerializer(certs, many=True)
+                return Response({
+                    'success': True,
+                    'data': serializer.data,
+                    'total': paginator.count,
+                    'page': int(page)
+                })
+            except EmptyPage:
+                return Response({
+                    'success': False,
+                    'error': '页码超出范围'
+                }, status=status.HTTP_400_BAD_REQUEST)
 
-# calculator/views.py
-from .utils import parse_certificate
-from .utils import execute_lua
-
-
-class CertificateUploadView(APIView):
-    def post(self, request):
-        file = request.FILES.get('file')
-        if not file:
-            return Response({'error': '未上传文件'}, status=400)
-
-        # 同步创建和处理证书
-        cert = CottonCertificate.objects.create(
-            file=file,
-            original_name=file.name,
-            status='processing'  # 直接标记为处理中
-        )
-
+    def delete(self, request, cert_id):
+        """删除证书"""
         try:
-            # 1. 解析证书（同步）
-            input_data = parse_certificate(cert.file.path)
+            cert = CottonCertificate.objects.get(id=cert_id)
+            cert.delete()
+            return Response({
+                'success': True,
+                'message': '证书已删除'
+            })
+        except CottonCertificate.DoesNotExist:
+            return Response({
+                'success': False,
+                'error': '证书不存在'
+            }, status=status.HTTP_404_NOT_FOUND)
 
-            # 2. 执行Lua计算（同步）
-            lua_result = execute_lua(input_data)
 
-            # 3. 存储结果（同步）
-            CalculationResult.objects.create(
-                certificate=cert,
-                premium=lua_result['premium'],
-                details=lua_result['details'],
-                is_rejected=lua_result.get('is_rejected', False),
-                rejection_reason=lua_result.get('rejection_reason', '')
-            )
-            cert.status = 'completed'
-        except Exception as e:
-            cert.status = 'failed'
-            cert.error_message = str(e)
+from django.core.files.storage import default_storage
+from tempfile import NamedTemporaryFile
+import os
+
+
+class CertificateUploadAPI(BaseAPIView):
+    def post(self, request):
+        # 1. 验证文件上传
+        if 'file' not in request.FILES:
+            raise ValidationError('请选择要上传的Excel文件')
+
+        file = request.FILES['file']
+
+        # 2. 验证文件扩展名
+        if not file.name.lower().endswith(('.xlsx', '.xls')):
+            raise ValidationError('仅支持.xlsx或.xls格式的Excel文件')
+
+        # 3. 创建临时存储
+        try:
+            with NamedTemporaryFile(delete=False, suffix='.xlsx') as tmp_file:
+                for chunk in file.chunks():
+                    tmp_file.write(chunk)
+                temp_path = tmp_file.name
+
+            # 4. 执行Excel处理和Lua计算
+            try:
+                script_dir = Path(__file__).parent.absolute()
+                lua_path = script_dir / 'calculator.lua'
+                result = process_excel_with_lua(temp_path, lua_path)
+
+                # 5. 保存结果到数据库
+                cert = CottonCertificate.objects.create(
+                    file=file,
+                    original_name=file.name,
+                    status='completed'
+                )
+
+                CalculationResult.objects.create(
+                    certificate=cert,
+                    premium=result['premium'],
+                    details=json.dumps(result['details']),
+                    is_rejected=result['is_rejected'],
+                    rejection_reason=result['rejection_reason']
+                )
+
+                return Response({
+                    'success': True,
+                    'data': {
+                        'certificate_id': cert.id,
+                        'premium': result['premium'],
+                        'is_rejected': result['is_rejected'],
+                        'rejection_reason': result['rejection_reason']
+                    }
+                }, status=status.HTTP_201_CREATED)
+
+            except ValueError as e:
+                raise ValidationError(str(e))
+            except Exception as e:
+                raise RuntimeError(f"计算过程出错: {str(e)}")
+
         finally:
-            cert.save()
-
-        return Response(
-            CertificateUploadSerializer(cert).data,
-            status=201
-        )
+            # 6. 清理临时文件
+            if 'temp_path' in locals() and os.path.exists(temp_path):
+                os.unlink(temp_path)

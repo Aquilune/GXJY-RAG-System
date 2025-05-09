@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import CottonConfig
+from .models import CottonConfig, CottonCertificate, CalculationResult
+
 
 class CottonConfigSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,17 +9,16 @@ class CottonConfigSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at')
 
 
-
-from rest_framework import serializers
-from .models import CottonCertificate, CalculationResult
-
-class CertificateUploadSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CottonCertificate
-        fields = ['file_id', 'original_name', 'status', 'batch_number']
-        read_only_fields = ['status']
-
 class CalculationResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = CalculationResult
-        fields = ['premium', 'is_rejected', 'rejection_reason', 'details']
+        fields = '__all__'
+
+
+class CertificateSerializer(serializers.ModelSerializer):
+    result = CalculationResultSerializer(source='calculation_result', read_only=True)
+
+    class Meta:
+        model = CottonCertificate
+        fields = ['id', 'original_name', 'status', 'created_at', 'result']
+        read_only_fields = ('status', 'created_at')
